@@ -22,6 +22,12 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'valid-jsdoc': 'off',
+    'object-curly-spacing': ['error', 'always'],
+    'indent': [
+      'error',
+      2,
+      { SwitchCase: 1, ignoredNodes: ['ConditionalExpression'] },
+    ],
   },
   settings: {
     react: {
