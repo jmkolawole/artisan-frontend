@@ -3,7 +3,15 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['google', 'plugin:react/recommended'],
+  extends: [
+    'google',
+    'plugin:react/recommended',
+    'eslint:recommended',
+    'plugin:react/jsx-runtime',
+    'plugin:react-hooks/recommended',
+    'prettier',
+    'plugin:prettier/recommended',
+  ],
   overrides: [
     {
       env: {
@@ -23,10 +31,19 @@ module.exports = {
   rules: {
     'valid-jsdoc': 'off',
     'object-curly-spacing': ['error', 'always'],
-    'indent': [
+    indent: [
       'error',
       2,
       { SwitchCase: 1, ignoredNodes: ['ConditionalExpression'] },
+    ],
+    'spaced-comment': [
+      'error',
+      'always',
+      {
+        line: {
+          markers: ['#region', '#endregion', 'region', 'endregion'],
+        },
+      },
     ],
   },
   settings: {

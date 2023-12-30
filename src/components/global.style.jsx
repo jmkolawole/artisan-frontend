@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   :root, body {
-    font-family: Inter !important;
+    font-family: Raleway;
     color: #000;
     background-color: #fff;
     margin: 0;
@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 14px;
   }
   button {
-    font-family: Inter;
+    font-family: Raleway;
   }
 `;
 
