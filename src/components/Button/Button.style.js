@@ -4,6 +4,7 @@ import { colors } from '../../utils';
 export const ButtonContainer = styled.button`
   height: ${(props) => props.$height};
   width: ${(props) => props.$width};
+  cursor: pointer;
   background-color: ${(props) => props.$bg};
   border: 1px solid
     ${(props) =>

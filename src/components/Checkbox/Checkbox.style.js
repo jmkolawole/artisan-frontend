@@ -6,7 +6,7 @@ export const CheckboxContainer = styled.div`
   border-radius: 4px;
   transition: all 0.25s;
   border-color: ${(props) =>
-    props.$checked ? colors.primary[200] : colors.primary[50]};
+    props.$checked ? colors.primary[200] : colors.primary[200]};
   display: flex;
   align-items: center;
   justify-content: center;

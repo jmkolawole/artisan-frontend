@@ -10,6 +10,7 @@ const Button = ({
   width = '100%',
   outline = false,
   children,
+  ...rest
 }) => {
   const getColorCode = (variant) => {
     let code;
@@ -36,6 +37,7 @@ const Button = ({
       $height={height}
       $bg={getColorCode(variant)}
       $variant={variant}
+      {...rest}
     >
       {children}
     </S.ButtonContainer>

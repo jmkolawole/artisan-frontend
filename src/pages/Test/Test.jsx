@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { colors } from '../../utils';
 import Button from '../../components/Button/Button';
 import Text from '../../components/Text/Text';
 import Icon from '../../components/Icon/Icon';
 import TextInput from '../../components/TextInput/TextInput';
 import Checkbox from '../../components/Checkbox/Checkbox';
-
+import SelectOptions from '../../components/Select/Select';
 
 const Test = () => {
+  // React -select
+  const [selectedValue, setSelectedValue] = useState([]);
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+    { value: 'banana', label: 'Banana' },
+  ];
+
+  const handleClick = () => {
+    console.log(selectedValue);
+    setSelectedValue([]);
+  }
+  
+  const handleChange = (value) => {
+    setSelectedValue(value);
+  }
   return (
     <div style={{ padding: '20px' }}>
       {/* Colors */}
@@ -100,7 +117,15 @@ const Test = () => {
         width="150px"
       />
 
-      <Checkbox checked onCheck={() => {}} />
+      <Checkbox checked={false} onCheck={() => {}} />
+      <br />
+
+      <div style={{ display: 'flex' }}>
+        <SelectOptions options={options} placeholder="Industry" onChange={handleChange} value={selectedValue}/>
+        <Button height="50px" width="100px" variant="primary" onClick={handleClick}>
+          Reset
+        </Button>
+      </div>
     </div>
   );
 };
