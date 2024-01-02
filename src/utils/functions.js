@@ -49,3 +49,32 @@ export const generateKey = (length = 10) => {
   }
   return result;
 };
+
+
+/**
+ * Return first 2 letters of the words in a string
+ * @param {string} text e.g Martin Luther
+ * @return {string} e.g ML
+ */
+export const avatarText = (text) => {
+  if (text && text.length > 1) {
+    if (text.includes('+')) {
+      return text;
+    }
+    const firstPart = text.split(' ')[0];
+    let secondPart = text.substring(1, 2);
+
+    if (text.split(' ').length > 1 && text.split(' ')[1].length > 0) {
+      secondPart = text.split(' ')[1].substring(0, 1);
+      secondPart = isNaN(parseInt(secondPart)) ?
+        secondPart :
+        text.substring(1, 2);
+    }
+
+    const shortText = `${firstPart.substring(0, 1)}${secondPart}`;
+
+    return toUpper(shortText);
+  }
+
+  return '';
+};

@@ -6,6 +6,8 @@ import Icon from '../../components/Icon/Icon';
 import TextInput from '../../components/TextInput/TextInput';
 import Checkbox from '../../components/Checkbox/Checkbox';
 import SelectOptions from '../../components/Select/Select';
+import Avatar from '../../components/Avatar/Avatar';
+import Tag from '../../components/Tag/Tag';
 
 const Test = () => {
   // React -select
@@ -20,11 +22,11 @@ const Test = () => {
   const handleClick = () => {
     console.log(selectedValue);
     setSelectedValue([]);
-  }
-  
+  };
+
   const handleChange = (value) => {
     setSelectedValue(value);
-  }
+  };
   return (
     <div style={{ padding: '20px' }}>
       {/* Colors */}
@@ -121,11 +123,29 @@ const Test = () => {
       <br />
 
       <div style={{ display: 'flex' }}>
-        <SelectOptions options={options} placeholder="Industry" onChange={handleChange} value={selectedValue}/>
-        <Button height="50px" width="100px" variant="primary" onClick={handleClick}>
+        <SelectOptions
+          options={options}
+          placeholder="Industry"
+          onChange={handleChange}
+          value={selectedValue}
+        />
+        <Button
+          height="50px"
+          width="100px"
+          variant="primary"
+          onClick={handleClick}
+        >
           Reset
         </Button>
       </div>
+      <br />
+      <div>
+        <Avatar resource="https://i.pravatar.cc" size="24x24" type="photo" />
+      </div>
+      <br />
+      <Tag bg="primary.100" hPadding={9}>
+        <Text size='xs2' weight={400}>Product Management</Text>
+      </Tag>
     </div>
   );
 };

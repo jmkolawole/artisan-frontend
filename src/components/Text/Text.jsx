@@ -13,6 +13,7 @@ const Text = ({
   let attrs = {};
   if (type === 'text') {
     attrs = {
+      fontFamily: 'Raleway',
       fontSize: fontSize.text[size] || fontSize.text.md,
       color: strToColor(color),
       ...rest?.style,
