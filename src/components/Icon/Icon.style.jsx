@@ -8,6 +8,7 @@ export const IconWrapper = styled.i`
   background: ${(props) => props.$bg};
   border-radius: ${(props) => props.$radius}px;
   justify-content: center;
+  cursor: pointer;
 
   & > svg {
     height: ${(props) => props.$height - props.$padding}px;

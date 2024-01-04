@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { colors } from "./colors";
 import {camelCase, trim} from 'lodash';
 /**
@@ -77,4 +78,22 @@ export const avatarText = (text) => {
   }
 
   return '';
+};
+
+
+
+/**
+ * Attach click event to outer/outside/exterior elements of an element
+ * @param {RefObject<HTMLDivElement>} ref
+ * @param {EventListener} func
+ */
+export const useClickOutside = (ref, func) => {
+  useEffect(() => {
+    // Bind the event listener
+    document.addEventListener('mousedown', func);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener('mousedown', func);
+    };
+  }, [ref, func]);
 };

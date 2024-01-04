@@ -37,6 +37,8 @@ export const InputContainer = styled.div`
 
 export const Input = styled.input`
   border-radius: 6px;
+  ${(props) => props.$action && 'border-top-right-radius: unset'};
+  ${(props) => props.$action && 'border-bottom-right-radius: unset'};
   font-family: Raleway;
   padding: 0 16px;
   font-size: ${sizes.s14};
@@ -52,6 +54,7 @@ export const Input = styled.input`
   &:focus-visible {
     border: solid 1px
       ${(props) => (props.$error ? colors.error[50] : colors.neutral[100])};
+    ${(props) => props.$action && 'border-right: unset'};
     outline: unset;
   }
 

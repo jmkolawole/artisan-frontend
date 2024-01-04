@@ -2,7 +2,7 @@
 import React from 'react';
 import { IconWrapper } from '../Icon.style';
 
-export const Message = ({ ...rest }) => {
+export const Chat = ({ ...rest }) => {
   // Add this for icons with fill
   const iconWeight = { ...rest }.$defaultWeight ? 0 : { ...rest }.$weight;
 

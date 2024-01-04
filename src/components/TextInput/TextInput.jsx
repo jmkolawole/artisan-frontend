@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { InputError, InputLabel } from '../Common.style.js';
 import { generateKey } from '../../utils/functions.js';
 import Icon from '../Icon/Icon.jsx';
+import Button from '../Button/Button.jsx';
 
 const TextInput = ({
   type = 'text',
@@ -12,12 +13,14 @@ const TextInput = ({
   error,
   required,
   width = '100%',
+  action = false,
+  buttonClicked = () => {},
+  actionTitle = 'Search',
   icon = {
     show: false,
   },
   ...rest
 }) => {
-
   const hasError = error ? true : false;
   const hasLabel = label?.length && label.length > 0 ? true : false;
 
@@ -38,13 +41,34 @@ const TextInput = ({
           {label}
         </InputLabel>
       )}
-      <S.Input
-        type={type}
-        $size={size}
-        $error={hasError}
-        id={generateKey()}
-        {...rest}
-      />
+      <div style={{ display: 'flex' }}>
+        <S.Input
+          type={type}
+          $size={size}
+          $error={hasError}
+          id={generateKey()}
+          $action={action}
+          {...rest}
+        />
+
+        {action && (
+          <Button
+            height="48px"
+            width="200px"
+            variant="primary"
+            onClick={buttonClicked}
+            style={{
+              borderBottomLeftRadius: 'unset',
+              borderTopLeftRadius: 'unset',
+              paddingLeft: '30px',
+              paddingRight: '30px',
+              cursor: 'pointer'
+            }}
+          >
+            {actionTitle}
+          </Button>
+        )}
+      </div>
 
       {icon && icon.show && (
         <Icon

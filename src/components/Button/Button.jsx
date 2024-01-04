@@ -19,7 +19,7 @@ const Button = ({
         code = colors.primary[200];
         break;
       case 'neutral':
-        code = colors.primary[300];
+        code = colors.neutral[300];
         break;
       case 'error':
         code = colors.error[50];
@@ -37,6 +37,7 @@ const Button = ({
       $height={height}
       $bg={getColorCode(variant)}
       $variant={variant}
+      $outline={outline}
       {...rest}
     >
       {children}

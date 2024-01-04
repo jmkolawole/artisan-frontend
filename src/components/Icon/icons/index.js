@@ -1,5 +1,11 @@
 export { Bell } from './Bell.svg';
-export { Message } from './Message.svg';
+export { Chat } from './Chat.svg.jsx';
 export { CheckBox } from './CheckBox.svg';
 export { ChevronRight } from './ChevronRight.svg.jsx';
 export { ChevronDown } from './ChevronDown.svg.jsx';
+export { X } from './X.svg';
+export { Key } from './Key.svg';
+export { Share } from './Share.svg.jsx';
+export { Location } from './Location.svg.jsx';
+export { Favorite } from './Favorite.svg.jsx';
+export { Link } from './Link.svg';

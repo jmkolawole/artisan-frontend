@@ -12,7 +12,8 @@ const SelectOptions = ({
   width = 200,
   menuWidth = 240,
   controlHeight = 50,
-  maxMenuContainerHeight = 200
+  maxMenuContainerHeight = 200,
+  multi=false
 }) => {
   const styles = {
     control: (styles, { isFocused }) => ({
@@ -98,6 +99,26 @@ const SelectOptions = ({
       color: colors.neutral[100],
       fontFamily: 'Raleway',
     }),
+    valueContainer: (style) => ({
+      ...style,
+      gap: '8px',
+      padding: 'unset'
+    }),
+    multiValue: (style) => ({
+      ...style,
+      backgroundColor: colors.primary[100],
+      width: 'fit-content',
+      padding: '8px 14px',
+      borderRadius: '30px'
+    }),
+    multiValueRemove: (style) => ({
+      ...style,
+      backgroundColor: 'inherit',
+      '&:hover': {
+        backgroundColor: colors.error[50],
+        color: colors.neutral.light
+      }
+    })
   };
   const DropdownIndicator = (props) => {
     const { menuIsOpen } = props.selectProps;
@@ -123,6 +144,7 @@ const SelectOptions = ({
         components={{ DropdownIndicator }}
         onChange={onChange}
         value={value}
+        isMulti={multi}
       />
     </div>
   );
