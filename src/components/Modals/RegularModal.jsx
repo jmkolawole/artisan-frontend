@@ -20,27 +20,18 @@ const RegularModal = ({
   children,
   disabled = false,
   showButtons = true,
+  buttonVariant = "primary",
   ...rest
 }) => {
   return (
     <>
-      <Overlay show={show} />
-      <S.ModalWrapper
+     <Overlay show={show} />
+     <S.ModalWrapper
         $width={width}
         $height={height}
         {...rest}
         style={{ ...rest.style, display: show ? 'block' : 'none' }}
       >
-        {/* <S.TitleContainer>
-          <Icon
-            name="x"
-            size="12x12"
-            color="neutral.200"
-            onClick={cancelAction}
-            style={{ cursor: 'pointer' }}
-          />
-        </S.TitleContainer> */}
-
         <S.BodyWrapper $height={height} $showButtons={showButtons}>
           {children}
           {showButtons && (
@@ -55,7 +46,7 @@ const RegularModal = ({
               </Button>
 
               <Button
-                variant={'primary'}
+                variant={buttonVariant}
                 height="50px"
                 width={confirmButtonWidth}
                 onClick={confirmAction}
@@ -67,7 +58,7 @@ const RegularModal = ({
             </S.ButtonWrapper>
           )}
         </S.BodyWrapper>
-      </S.ModalWrapper>
+      </S.ModalWrapper> 
     </>
   );
 };
