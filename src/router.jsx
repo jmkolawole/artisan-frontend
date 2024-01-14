@@ -9,6 +9,10 @@ import Profile from './pages/Profile/Profile';
 
 export const router = createBrowserRouter([
   {
+    path: '*',
+    element: <h1>404 Not Found</h1>,
+  },
+  {
     path: '/login',
     element: <Login />,
   },
@@ -26,12 +30,12 @@ export const router = createBrowserRouter([
       },
       {
         path: '/dashboard',
-        element: <Dashboard/>,
+        element: <Dashboard />,
       },
       {
         path: '/profile',
-        element: <Profile/>,
-      }
+        element: <Profile />,
+      },
     ],
   },
 ]);
