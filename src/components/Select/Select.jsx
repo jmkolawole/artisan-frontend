@@ -58,7 +58,6 @@ const SelectOptions = ({
       fontFamily: 'Raleway',
       fontSize: sizes.s14,
       color: colors.neutral[100],
-      fontSize: '14px',
       padding: '16px 31px 16px 41px',
       cursor: 'pointer',
       backgroundColor: isDisabled

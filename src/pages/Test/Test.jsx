@@ -131,10 +131,10 @@ const Test = () => {
         icon={{}}
         label="Input Label"
         placeholder="Placeholder"
-        size="md"
+        size="sm"
         type="text"
         width="150px"
-        action={true}
+        action={false}
         actionTitle='Send'
         buttonClicked={() => alert('hiuuu')}
       />
@@ -165,7 +165,7 @@ const Test = () => {
         <Avatar resource="https://i.pravatar.cc" size="24x24" type="photo" />
       </div>
       <br />
-      <Tag write bg="primary.200" height="40px" hPadding={12} style={{display: 'flex', gap: '10px'}}>
+      <Tag write={false} bg="primary.200" height="40px" hPadding={12} style={{display: 'flex', gap: '10px'}}>
         <Text size="xs2" weight={400} color="neutral.light">
           Product Management
         </Text>
