@@ -6,6 +6,7 @@ import Layout from './components/Layout/Layout';
 import Test from './pages/Test/Test';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Profile from './pages/Profile/Profile';
+import Categories from './pages/Categories/Categories';
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
         path: '/profile',
         element: <Profile />,
       },
+      {
+        path: '/categories',
+        element: <Categories />,
+      }
     ],
   },
 ]);
