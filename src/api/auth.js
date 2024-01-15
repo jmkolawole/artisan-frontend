@@ -1,4 +1,4 @@
-const apiUrl = 'http://137.184.234.112/api/v1';
+const apiUrl = 'https://jimohkolawole.xyz/api/v1';
 
 export const emailLogin = async (data) => {
   try {
