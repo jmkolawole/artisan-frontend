@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useUserQuery } from '../../api/queries/categories.query';
 import Text from '../../components/Text/Text';
 
-const apiUrl = 'http://localhost:8000/api/v1';
-//const apiUrl = 'https://jimohkolawole.xyz/api/v1';
+//const apiUrl = 'http://localhost:8000/api/v1';
+const apiUrl = 'https://jimohkolawole.xyz/api/v1';
 
 const Home = () => {
   const [files, setFiles] = useState([]);

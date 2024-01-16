@@ -1,6 +1,6 @@
 //import { apiUrl } from ".";
-const apiUrl = 'http://localhost:8000/api/v1';
-//const apiUrl = 'https://jimohkolawole.xyz/api/v1';
+//const apiUrl = 'http://localhost:8000/api/v1';
+const apiUrl = 'https://jimohkolawole.xyz/api/v1';
 export const emailLogin = async (data) => {
   try {
     const response = await fetch(`${apiUrl}/auth/login`, {
