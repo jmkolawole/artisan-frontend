@@ -7,6 +7,8 @@ export const PageContainer = styled.div`
 
 export const PageContent = styled.div`
   margin-left  : 310px;
+  width: 100%;
+  margin-right: 5px;
 `;
 
 

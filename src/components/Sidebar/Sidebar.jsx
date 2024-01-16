@@ -13,7 +13,7 @@ const Sidebar = () => {
   return (
     <S.SidebarContainer>
       <Text style={{ fontSize: '24px' }} weight={700} color="neutral.light">
-        Artisans
+        Contractors
       </Text>
 
       <S.SidebarContent>
