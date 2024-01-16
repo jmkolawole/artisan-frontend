@@ -60,7 +60,7 @@ export const Input = styled.input`
 
   &:disabled {
     opacity: 0.8;
-    background: ${colors.error[50]};
+    background: ${colors.neutral[200]};
     cursor: not-allowed;
   }
 

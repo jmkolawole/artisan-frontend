@@ -3,8 +3,13 @@ import * as S from './Profile.styles';
 import Text from '../../components/Text/Text';
 import TextInput from '../../components/TextInput/TextInput';
 import SelectOptions from '../../components/Select/Select';
-import { useCategoriesQuery } from '../../api/queries/categories.query';
+import {
+  useCategoriesQuery,
+  useUpdateUser,
+  useUserQuery,
+} from '../../api/queries/categories.query';
 import Button from '../../components/Button/Button';
+import { useQueryClient } from 'react-query';
 
 const Profile = () => {
   const [selectedValue, setSelectedValue] = useState([]);
@@ -14,6 +19,16 @@ const Profile = () => {
   const [image3, setImage3] = useState('');
   const [image4, setImage4] = useState('');
   const [image5, setImage5] = useState('');
+
+  const queryClient = useQueryClient();
+  const [error, setError] = useState('');
+
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [location, setLocation] = useState('');
+  const [category, setsetCategory] = useState('');
 
   const fetchCategories = (data) => {
     const values = data.data.data;
@@ -33,15 +48,49 @@ const Profile = () => {
     fetchCategories,
     () => {},
   );
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-    { value: 'banana', label: 'Banana' },
-  ];
+
+  const fetchUser = (data) => {
+    if (data.data.data.first_name) {
+      setFirstName(data.data.data.first_name);
+    }
+    if (data.data.data.last_name) {
+      setLastName(data.data.data.last_name);
+    }
+    if (data.data.data.email) {
+      setEmail(data.data.data.email);
+    }
+
+    if (data.data.data.location) {
+      setLocation(data.data.data.location);
+    }
+
+    if (data.data.data.phone) {
+      setPhone(data.data.data.phone);
+    }
+
+    if (data.data.data.category_id) {
+      const val = opts.find((item) => {
+        return item.value == data.data.data.category_id;
+      });
+
+      setSelectedValue(val);
+    }
+  };
+
+  const {} = useUserQuery(localStorage.getItem('user_id'), fetchUser, () => {});
+
+  const updateSuccess = (data) => {
+    queryClient.invalidateQueries({
+      queryKey: ["user", localStorage.getItem('user_id')],
+    });
+  };
+
+  const { mutate } = useUpdateUser(updateSuccess, () => {});
 
   const handleChange = (value) => {
-    console.log(value);
+    setImage1('');
+    setImage2('');
+    setImage3('');
     setSelectedValue(value);
   };
 
@@ -77,17 +126,62 @@ const Profile = () => {
     getFileBase64(fileUploaded, setImage3);
   };
 
-
   const handleSubmit = () => {
-    console.log(image1);
-    console.log(image2);
-  }
+    if (!selectedValue.req) {
+      return;
+    }
+    if (selectedValue?.req == 3) {
+      if (!image1 && !image2 && !image3) {
+        setError('Please fill all fields and upload all documents');
+        return;
+      }
+    }
+
+    if (selectedValue?.req == 2) {
+      if (!image1 && !image2) {
+        setError('Please fill all fields and upload all documents');
+        return;
+      }
+    }
+
+    if (!first_name && !last_name && !email && !location && phone) {
+      setError('Please fill all fields and upload all documents');
+      return;
+    }
+
+    //Upload here
+    let images;
+    if (selectedValue?.req === 1) {
+      images = { image1 };
+    }
+    if (selectedValue?.req === 2) {
+      images = { image1, image2 };
+    }
+    if (selectedValue?.req === 3) {
+      images = { image1, image2, image3 };
+    }
+    const user = {
+      user_id: localStorage.getItem('user_id'),
+      first_name,
+      last_name,
+      email,
+      location,
+      phone,
+      category_id: selectedValue.value,
+      ...images,
+    };
+
+    mutate(user);
+
+    console.log(first_name, last_name, email, location, phone, selectedValue);
+  };
   return (
     <S.ProfileWrapper>
       <div>
         <Text style={{ fontSize: '24px' }} weight={700} color="neutral.dark">
-          Update your profile <span>{localStorage.getItem('username')}</span>
+          Update your profile <span>{localStorage.getItem('email')}</span>
         </Text>
+        {error && <Text color="error.50">{error}</Text>}
       </div>
       <S.ProfileContainer>
         <S.FormContainer>
@@ -107,6 +201,8 @@ const Profile = () => {
                 placeholder="First Name"
                 size="md"
                 type="text"
+                value={first_name}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
 
@@ -118,6 +214,8 @@ const Profile = () => {
                 placeholder="Last Name"
                 size="md"
                 type="text"
+                value={last_name}
+                onChange={(e) => setLastName(e.target.value)}
               />
             </div>
           </div>
@@ -130,6 +228,9 @@ const Profile = () => {
               placeholder="Email"
               size="md"
               type="email"
+              disabled={true}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -141,6 +242,8 @@ const Profile = () => {
               placeholder="Location"
               size="md"
               type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
             />
           </div>
 
@@ -152,12 +255,14 @@ const Profile = () => {
               placeholder="Mobile No"
               size="md"
               type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </div>
 
           <div style={{ marginBottom: '50px' }}>
             <SelectOptions
-              options={opts}
+              options={opts ? opts : []}
               placeholder="Job Role"
               onChange={handleChange}
               value={selectedValue}
@@ -166,9 +271,9 @@ const Profile = () => {
             />
           </div>
 
-          {selectedValue.req && (
+          {selectedValue?.req && (
             <div>
-              {selectedValue.req == 1 && (
+              {selectedValue?.req == 1 && (
                 <div
                   style={{
                     display: 'flex',
@@ -180,7 +285,7 @@ const Profile = () => {
                 </div>
               )}
 
-              {selectedValue.req == 2 && (
+              {selectedValue?.req == 2 && (
                 <div
                   style={{
                     display: 'flex',
@@ -193,7 +298,7 @@ const Profile = () => {
                 </div>
               )}
 
-              {selectedValue.req == 3 && (
+              {selectedValue?.req == 3 && (
                 <div
                   style={{
                     display: 'flex',
@@ -207,7 +312,7 @@ const Profile = () => {
                 </div>
               )}
 
-              {selectedValue.req == 4 && (
+              {selectedValue?.req == 4 && (
                 <div
                   style={{
                     display: 'flex',
@@ -222,7 +327,7 @@ const Profile = () => {
                 </div>
               )}
 
-              {selectedValue.req == 4 && (
+              {selectedValue?.req == 4 && (
                 <div
                   style={{
                     display: 'flex',
@@ -240,7 +345,13 @@ const Profile = () => {
             </div>
           )}
 
-          <div>
+          <div
+            style={{
+              marginTop: '20px',
+              display: 'flex',
+              justifyContent: 'right',
+            }}
+          >
             <Button
               height="50px"
               width="100px"

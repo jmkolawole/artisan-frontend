@@ -25,6 +25,24 @@ const Dashboard = () => {
 
   const { isLoading } = useUsersQuery(fetchUsers, () => {});
 
+  const getUserCategory = (user) => {
+    if(user?.category){
+      return user.category.name
+    }else{
+      return ""
+    }
+  }
+
+  const getFileCount = (user) => {
+    if(!user.category?.file_required){
+      return `0`;
+    }
+
+    if(user.category?.file_required){
+      return `${user.files.length} / ${user.category.file_required}`;
+    }
+  }
+
   return (
     <S.DashboardContainer>
       {!isLoading ? (
@@ -38,22 +56,28 @@ const Dashboard = () => {
                 ID
               </Text>
             </div>
-            <div style={{ width: '35%' }}>
+            <div style={{ width: '25%' }}>
               <Text style={{ fontSize: '16px' }} weight={600}>
                 Name
               </Text>
             </div>
             <div style={{ width: '20%' }}>
               <Text style={{ fontSize: '16px' }} weight={600}>
+                Email
+              </Text>
+            </div>
+
+            <div style={{ width: '20%' }}>
+              <Text style={{ fontSize: '16px' }} weight={600}>
                 Category
               </Text>
             </div>
-            <div style={{ width: '20%' }}>
+            <div style={{ width: '15%' }}>
               <Text style={{ fontSize: '16px' }} weight={600}>
                 Files uploaded
               </Text>
             </div>
-            <div style={{ width: '25%' }}>
+            <div style={{ width: '20%' }}>
               <Text style={{ fontSize: '16px' }} weight={600}>
                 Status
               </Text>
@@ -69,28 +93,36 @@ const Dashboard = () => {
                       {index + 1}
                     </Text>
                   </div>
-                  <div style={{ width: '35%' }}>
-                    <Text style={{ fontSize: '14px' }} weight={400}>
-                      {`${user.first_name} ${user.last_name}`}
-                    </Text>
-                  </div>
-                  <div style={{ width: '20%' }}>
-                    <Text style={{ fontSize: '14px' }} weight={400}>
-                      {user.category?.name}
-                    </Text>
-                  </div>
-                  <div style={{ width: '20%' }}>
-                    <Text style={{ fontSize: '14px' }} weight={400}>
-                      {`${user.files.length} / ${user.category.file_required}`}
-                    </Text>
-                  </div>
                   <div style={{ width: '25%' }}>
                     <Text style={{ fontSize: '14px' }} weight={400}>
-                      {user.files.length / user.category.file_required >= 1 ? (
+                      {`${user.first_name ? user.first_name : "-"} ${user.last_name ? user.last_name : ""}`}
+                    </Text>
+                  </div>
+
+                  <div style={{ width: '20%' }}>
+                    <Text style={{ fontSize: '14px' }} weight={400}>
+                      {user.email}
+                    </Text>
+                  </div>
+
+                  <div style={{ width: '20%' }}>
+                    <Text style={{ fontSize: '14px' }} weight={400}>
+                      {getUserCategory(user)}
+                    </Text>
+                  </div>
+                  <div style={{ width: '15%' }}>
+                    <Text style={{ fontSize: '14px' }} weight={400}>
+                      {getFileCount(user)}
+                    </Text>
+                  </div>
+                  <div style={{ width: '20%' }}>
+                    <Text style={{ fontSize: '14px' }} weight={400}>
+                      {user.category ? user.files.length / user.category.file_required >= 1 ? (
                         <span style={{backgroundColor: 'green', padding: '2px 5px', color: 'white', borderRadius: '4px', border: '1px solid #acf3b1'}}>Complete</span>
                       ) : (
                         <span style={{backgroundColor: 'red', padding: '2px 5px', color: 'white', borderRadius: '4px', border: '1px solid #dda8a8'}}>Incomplete</span>
-                      )}
+                      ) : <span style={{backgroundColor: 'red', padding: '2px 5px', color: 'white', borderRadius: '4px', border: '1px solid #dda8a8'}}>Incomplete</span>}
+          
                     </Text>
                   </div>
                 </S.Item>
@@ -123,3 +155,16 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+/* 
+                  <div style={{ width: '25%' }}>
+                    <Text style={{ fontSize: '14px' }} weight={400}>
+                      {user.category ? user.files.length / user.category.file_required >= 1 ? (
+                        <span style={{backgroundColor: 'green', padding: '2px 5px', color: 'white', borderRadius: '4px', border: '1px solid #acf3b1'}}>Complete</span>
+                      ) : (
+                        <span style={{backgroundColor: 'red', padding: '2px 5px', color: 'white', borderRadius: '4px', border: '1px solid #dda8a8'}}>Incomplete</span>
+                      ) : <span style={{backgroundColor: 'red', padding: '2px 5px', color: 'white', borderRadius: '4px', border: '1px solid #dda8a8'}}>Incomplete</span>}
+          
+                    </Text>
+                  </div> */
