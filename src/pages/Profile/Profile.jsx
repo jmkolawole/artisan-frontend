@@ -3,6 +3,7 @@ import * as S from './Profile.styles';
 import Text from '../../components/Text/Text';
 import TextInput from '../../components/TextInput/TextInput';
 import SelectOptions from '../../components/Select/Select';
+import { useNavigate } from 'react-router-dom';
 import {
   useCategoriesQuery,
   useUpdateUser,
@@ -12,6 +13,7 @@ import Button from '../../components/Button/Button';
 import { useQueryClient } from 'react-query';
 
 const Profile = () => {
+  
   const [selectedValue, setSelectedValue] = useState([]);
   const [opts, setOpts] = useState([]);
   const [image1, setImage1] = useState('');
@@ -22,6 +24,8 @@ const Profile = () => {
 
   const queryClient = useQueryClient();
   const [error, setError] = useState('');
+
+  const navigate = useNavigate();
 
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
@@ -80,9 +84,13 @@ const Profile = () => {
   const {} = useUserQuery(localStorage.getItem('user_id'), fetchUser, () => {});
 
   const updateSuccess = (data) => {
+    navigate('/');
     queryClient.invalidateQueries({
       queryKey: ["user", localStorage.getItem('user_id')],
     });
+
+    
+
   };
 
   const { mutate } = useUpdateUser(updateSuccess, () => {});
